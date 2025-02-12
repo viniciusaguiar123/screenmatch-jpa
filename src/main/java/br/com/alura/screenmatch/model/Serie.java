@@ -1,0 +1,27 @@
+package br.com.alura.screenmatch.model;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+
+import java.util.OptionalDouble;
+
+public class Serie {
+
+   private String titulo;
+   private Integer totalTemporadas;
+   private Double avaliacao;
+   private Categoria genero;
+   private String atores;
+   private String posters;
+   private String sinopse;
+
+   public Serie(DadosSerie dadosSerie){
+       this.titulo = dadosSerie.titulo();
+       this.totalTemporadas = dadosSerie.totalTemporadas();
+       this.avaliacao = OptionalDouble.of(Double.parseDouble(dadosSerie.avaliacao())).orElse(0);
+       this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
+       this.atores = dadosSerie.atores();
+       this.posters = dadosSerie.posters();
+       this.sinopse = dadosSerie.sinopse();
+   }
+
+}
