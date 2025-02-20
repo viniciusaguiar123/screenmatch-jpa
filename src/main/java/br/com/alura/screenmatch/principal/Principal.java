@@ -7,9 +7,7 @@ import br.com.alura.screenmatch.model.Serie;
 import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,6 +36,7 @@ public class Principal {
                     2 - Buscar episódios
                     3 - Listar séries buscadas
                     4 - Buscar série por título
+                    5 - Buscar séries por autor
                     
                     0 - Sair                                 
                     """;
@@ -58,6 +57,9 @@ public class Principal {
                     break;
                 case 4:
                     buscarSeriePorTitulo();
+                    break;
+                case 5:
+                    buscarSeriePorAutor();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -131,5 +133,15 @@ public class Principal {
         }else {
             System.out.println("Série não encontrada!");
         }
+    }
+
+    private void buscarSeriePorAutor() {
+        System.out.println("Qual o nome para a busca? ");
+        var nomeAutor = leitura.nextLine();
+        System.out.println("Avaliações a partir de que valor? ");
+        var avalicao = leitura.nextDouble();
+        List<Serie> seriesEncontradas = repository.findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(nomeAutor, avalicao);
+        System.out.println("Séries em que " + nomeAutor + " trabalhou: ");
+        seriesEncontradas.forEach(serie -> System.out.println(serie.getTitulo() + ", avaliação: " + serie.getAvaliacao()));
     }
 }
