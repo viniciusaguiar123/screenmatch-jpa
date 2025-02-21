@@ -174,7 +174,7 @@ public class Principal {
         leitura.nextLine();
         System.out.println("Com avaliação a partir de que valor?");
         var avaliacao = leitura.nextDouble();
-        List<Serie> filtroSeries = repository.findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(totalTemporadas, avaliacao);
+        List<Serie> filtroSeries = repository.seriesPorTemporadaEAvaliacao(totalTemporadas, avaliacao);
         System.out.println("*** Séries filtradas ***");
         filtroSeries.forEach(serie ->
                 System.out.println(serie.getTitulo() + " - avaliação: " + serie.getAvaliacao()));
